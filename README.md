@@ -1,0 +1,1 @@
+Projeto da disciplina de Aprendizado Supervisionado para Universidade Federal do Paraná, utilizando ferramentas de Machine Learning, com bases de dados de ofertas da Starbucks, para otimização do envio de ofertas para os clientes.
