@@ -29,3 +29,14 @@ def calculate_pre_offer_features(offers, transactions):
     agg['pre_offer_time_since_last_tx'] = agg['received_time'] - agg['last_tx_time']
 
     return agg
+
+#Transformando a coluna channels em variáveis dummies
+def encode_channels(df):
+
+    exploded = df[['channels']].explode('channels')
+    dummies = pd.get_dummies(exploded['channels'], prefix='channel')
+    dummies_grouped = dummies.groupby(exploded.index).sum()
+    
+    df = pd.concat([df.drop(columns='channels'), dummies_grouped], axis=1)
+
+    return df
