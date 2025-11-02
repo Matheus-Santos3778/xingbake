@@ -1,6 +1,6 @@
-from data_loading import load_datasets
-from data_preprocessing import expand_transcript, merge_with_portfolio
-from feature_engineering import extract_transactions, calculate_pre_offer_features
+from pipeline.data_loading import load_datasets
+from pipeline.data_preprocessing import expand_transcript, merge_with_portfolio
+from pipeline.feature_engineering import extract_transactions, calculate_pre_offer_features
 import pandas as pd
 
 def build_ml_dataset(portfolio_path, profile_path, transcript_path):
