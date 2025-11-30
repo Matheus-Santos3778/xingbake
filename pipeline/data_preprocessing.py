@@ -18,3 +18,10 @@ def merge_with_portfolio(transcript_exp, portfolio):
     df['time'] = df['time'] / 24  #Converte para dias
 
     return df
+
+def extract_transactions(transcript_exp):
+
+    df = transcript_exp[transcript_exp['event'] == 'transaction'].copy()
+    df = df[['person', 'time', 'amount']]
+
+    return df
