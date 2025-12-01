@@ -27,6 +27,9 @@ def calculate_pre_offer_features(offers, transactions):
     agg['time_last_tx'] = agg['received_time'] - agg['last_tx_time']
     agg.drop(columns='last_tx_time', inplace=True)
 
+    #Variável muito assimétrica e concentrada
+    agg['pre_offer_avg_spend'] = np.log1p(agg['pre_offer_avg_spend'])
+
     return agg
 
 #Incluindo a variável resposta

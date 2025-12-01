@@ -44,9 +44,6 @@ def build_ml_dataset(portfolio_path, profile_path, transcript_path):
     #Criando variáveis spend_reward_ratio e spend_difficulty_ratio
     data = building_ratios(data)
 
-    #Variável muito assimétrica e concentrada
-    data['pre_offer_avg_spend'] = np.log1p(data['pre_offer_avg_spend'])
-
     #Criando variável indicadora de missing em Age, Gender e Income
     data['agi_missing'] = data['income'].isna().astype(int)
 

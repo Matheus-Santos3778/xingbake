@@ -1,5 +1,3 @@
-import seaborn as sns                       
-import matplotlib.pyplot as plt
 from sklearn.metrics import (accuracy_score, precision_score, recall_score, f1_score, confusion_matrix, roc_auc_score, roc_curve, fbeta_score)
 from sklearn.base import clone
 import numpy as np  
@@ -113,31 +111,10 @@ def evaluate_model_with_rolling_window(
         y_pred_all.extend(y_pred)
         y_prob_all.extend(y_prob)
 
-    #Visualização
-
+    #Dados para visualização
+    conf_matrix = confusion_matrix(y_true_all, y_pred_all)
     mean_tpr = np.mean(tprs, axis=0)
     std_tpr = np.std(tprs, axis=0)
     mean_tpr[-1] = 1.0
 
-    conf_matrix = confusion_matrix(y_true_all, y_pred_all)
-
-    fig, axes = plt.subplots(1, 2, figsize=(12, 5))
-
-    axes[0].plot(mean_fpr, mean_tpr, label=f"ROC Média (AUC = {np.mean(aucs):.3f})")
-    axes[0].fill_between(mean_fpr, np.maximum(mean_tpr - std_tpr, 0),
-                         np.minimum(mean_tpr + std_tpr, 1), alpha=0.2)
-    axes[0].plot([0, 1], [0, 1], linestyle="--", color="gray")
-    axes[0].legend()
-    axes[0].set_title("Curva ROC - Rolling Window")
-    axes[0].set_xlabel("FPR")
-    axes[0].set_ylabel("TPR")
-
-    sns.heatmap(conf_matrix, annot=True, fmt='d', cmap='Blues',
-                xticklabels=["Não", "Sim"], yticklabels=["Não", "Sim"],
-                ax=axes[1])
-    axes[1].set_title("Matriz de Confusão Agregada")
-
-    plt.tight_layout()
-    plt.show()
-
-    return accs, precisions, recalls, f1s, f2s, f3s, aucs
+    return accs, precisions, recalls, f1s, f2s, f3s, aucs, conf_matrix, mean_tpr, std_tpr, mean_fpr
